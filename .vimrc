@@ -37,10 +37,25 @@ let g:ale_completion_enabled = 1
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
 
+"Brackets are added automatically
+inoremap ( ()<LEFT>
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+
 syntax on
+
+"tabs
 set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+
 filetype on
+
+"number
 set nu
+
 set ruler
 set mouse=a
 set list
