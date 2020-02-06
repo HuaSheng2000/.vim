@@ -8,7 +8,8 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="candy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +69,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git textmate ruby autojump osx mvn gradle)
+plugins=(git textmate ruby autojump osx mvn gradle zsh-syntax-highlighting zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,3 +98,30 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+export PATH="/usr/local/opt/ncurses/bin:$PATH"
+
+# zsh-completions
+autoload -U compinit && compinit -u
+
+export LANG=zh_CN.UTF-8
+
+alias v='vim'
+alias vi='vim'
+
+autoload -Uz colors
+colors
+
+setopt auto_cd
+setopt no_beep
+setopt nolistbeep
+setopt auto_pushd
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt share_history
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
