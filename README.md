@@ -1,41 +1,71 @@
-install Pathogen to ~/.vim/bundle/ first:
+# vim configuration
+
+
+## install Vundle
 
 ```
-git submodule add git://github.com/tpope/vim-pathogen.git ./vim-pathogen
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
-add it to ~/.vimrc:
-```
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-Helptags
-```
-and install NERDTree if you want:
-```
-git submodule add git://github.com/scrooloose/nerdtree.git ./nerdtree
-```
-add it to ~/.vimrc:
-```
-nnoremap :NERDTree
-```
-add YouCompleteMe
 
-must to install cmake
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+.vimrc configuration
 
-brew install cmake
-
-git clone https://github.com/ycm-core/YouCompleteMe.git
-
-git submodule update --init --recursive
-
-./install.py --clang-completer
 ```
-add rainbow_parentheses
+"vundle
+set nocompatible              " required
+filetype off                  " required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'dense-analysis/ale'
+call vundle#end()            " required
+filetype plugin indent on    " required
 ```
-git clone https://github.com/kien/rainbow_parentheses.vim.git
+
+and install Plugins
+
 ```
-add to ~/.vimrc
+:PluginInstall
+```
+
+## NERDTree configuration
+```
+"nerdtree setting
+"" NERDTree config
+" open a NERDTree automatically when vim starts up
+autocmd vimenter * NERDTree
+"open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"map F2 to open NERDTree
+map <F2> :NERDTreeToggle<CR>
+"close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+```
+
+## install tagbar and tagbar configuration
+
+```
+brew install ctags
+Plugin 'majutsushi/tagbar'
+:PluginInstall
+```
+
+```
+let g:tagbar_width=35
+let g:tagbar_autofocus=1
+let g:tagbar_left = 1
+nmap <F3> :TagbarToggle<CR>
+```
+
+## rainbow_parentheses configuration
+
 ```
 let g:rbpt_colorpairs = [
                         \ ['brown',       'RoyalBlue3'],
@@ -61,7 +91,11 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 ```
-add ale
+
+## vim-powerline configuration
+
 ```
-git clone https://github.com/dense-analysis/ale.git
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8 
+set laststatus=2
 ```
